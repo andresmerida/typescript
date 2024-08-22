@@ -93,6 +93,8 @@ const bob: Manager = { id: 1, name: 'bob', employees: [alice, steve] };
 printStaffDetails(alice);
 printStaffDetails(bob);
 
+
+
 type Book = { id: number; name: string; price: number };
 type DiscountedBook = Book & {discount: number };
 const book1: Book = {
@@ -283,3 +285,47 @@ function getServerResponse(): ServerResponse {
         data: ['first item', 'second item'],
     };
 }
+
+enum UserRole {
+    Admin,
+    Manager,
+    Employee
+}
+
+type UserR = {
+    id: number;
+    name: string;
+    role: UserRole;
+    contact: [string, string];
+};
+
+function createUserR(user: UserR): UserR {
+    return user;
+}
+
+const userR: UserR = createUserR({
+    id: 1,
+    name: 'john doe',
+    role: UserRole.Admin,
+    contact: ['john@gmail.com', '123-456-789'],
+});
+
+console.log(userR);
+
+let someValue: any = 'This is a string';
+let strLength: number = (someValue as string).length;
+type Bird = {
+    name: string;
+};
+
+let birdString = '{"name": "Eagle"}';
+let dogString = '{"breed": "Poodle"}';
+
+let birdObject = JSON.parse(birdString);
+let dogObject = JSON.parse(dogString);
+
+let bird = birdObject as Bird;
+let dog = dogObject as Bird;
+
+console.log(bird.name);
+console.log(dog.name);
