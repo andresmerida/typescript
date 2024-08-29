@@ -329,3 +329,115 @@ let dog = dogObject as Bird;
 
 console.log(bird.name);
 console.log(dog.name);
+
+enum Status {
+    Pending = 'pending',
+    Declined = 'declined'
+}
+
+type UserStatus = {
+    name: string,
+    status: Status
+}
+
+// save Status.Pending is the DB as a string
+// retrieve string from the DB
+
+const statusValue = 'pending';
+const userStatus: UserStatus = { name: 'john', status: statusValue as Status };
+
+function runSomeCode() {
+    const random = Math.random();
+    if (random < 0.5) {
+        throw new Error('there was arror...');
+    } else {
+        throw 'some error';
+    }
+}
+
+try {
+    runSomeCode();
+} catch(error) {
+    if (error instanceof Error) {
+        console.log(error.message);
+    } else {
+        console.log(error);
+    }
+}
+
+enum Color {
+    Red,
+    Blue,
+    Green,
+}
+
+function getColorName(color: Color) {
+    switch (color) {
+        case Color.Red: 
+            return 'Red';
+        case Color.Blue:
+            return 'Blue';
+        case Color.Green:
+            return 'Green';
+        default:
+            let unexpectedColor: never = color;     // at built time
+            throw new Error(`Unexpected color value: ${color}`);
+    }
+}
+
+console.log(getColorName(Color.Red));
+console.log(getColorName(Color.Blue));
+console.log(getColorName(Color.Green));
+
+type Dog = { type: 'dog', name: string; bark: () => void };
+type Cat = { type: 'cat', name: string; meow: () => void };
+type Animal = Dog | Cat;
+
+function makeSound(animal: Animal) {
+    if (animal.type === 'dog') {
+        animal.bark();
+    } else {
+        animal.meow();
+    }
+}
+
+// Generic function and generic interface
+
+function genericFunction<T>(arg: T): T {
+    return arg;
+}
+
+const someStringValue = genericFunction<string>('Hello world');
+const someNumberValue = genericFunction<number>(2);
+
+interface GenericInterface<T> {
+    value: T;
+    getValue: () => T;
+}
+
+const genericString: GenericInterface<string> = {
+    value: 'Hello World',
+    getValue() {
+        return this.value;
+    }
+}
+
+// lets create a async function somoFunc2
+async function someFunc2(): Promise<string> {
+    return 'hello world';
+}
+
+const result2 = someFunc2();
+
+function createArray<T>(length: number, value: T): Array<T> {
+    let result: T[] = [];
+    result = Array(length).fill(value);
+    return result;
+}
+
+let arrayStrings = createArray<string>(10, 'hello');
+let arrayNumbers = createArray<number>(10, 10);
+
+console.log(arrayStrings);
+console.log(arrayNumbers);
+
