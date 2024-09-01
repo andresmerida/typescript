@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 const books = ['1984', 'Brave New World', 'Fahrenheit 451'];
 let foundBook: string | undefined;
 
@@ -470,3 +472,31 @@ const tours = await fetchData(url);
 tours.map((tour) => {
     console.log(tour.name);
 });
+
+class BookClass {
+    public readonly title: string;
+    public author: string;
+    private checkedOut: boolean = false;
+
+    constructor(title:string, author:string) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public checkOut() {
+        this.checkedOut = this.toggleCheckedOutStatus();
+    }
+
+    public isCheckedOut() {
+        return this.checkedOut;
+    }
+
+    private toggleCheckedOutStatus() {
+        return !this.checkedOut;
+    }
+}
+
+const deepWork2 = new BookClass('Deep Work', 'Cal Newport');
+deepWork2.checkOut();
+console.log(deepWork2);
+
